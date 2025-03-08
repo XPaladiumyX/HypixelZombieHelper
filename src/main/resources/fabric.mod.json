@@ -3,30 +3,32 @@
   "id": "hypixelzombiehelper",
   "version": "${version}",
   "name": "HypixelZombieHelper",
-  "description": "",
-  "authors": [],
-  "contact": {},
-  "license": "All-Rights-Reserved",
-  "icon": "assets/hypixelzombiehelper/icon.png",
+  "description": "A mod to assist with Hypixel Zombies mode.",
+  "authors": [
+    "XPaladiumyX"
+  ],
+  "contact": {
+    "homepage": "https://skyxnetwork.net",
+    "sources": "https://github.com/XPaladiumyX/HypixelZombieHelper",
+    "issues": "https://github.com/XPaladiumyX/HypixelZombieHelper/issues"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
       "skyxnetwork.hypixelzombiehelper.client.HypixelzombiehelperClient"
-    ],
-    "main": [
-      "skyxnetwork.hypixelzombiehelper.Hypixelzombiehelper"
     ]
   },
   "mixins": [
-    "hypixelzombiehelper.mixins.json",
-    {
-      "config": "hypixelzombiehelper.client.mixins.json",
-      "environment": "client"
-    }
+    "hypixelzombiehelper.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
-    "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "fabricloader": ">=0.15.0",
+    "fabric-api": ">=0.102.0+1.21",
+    "minecraft": "1.21"
+  },
+  "suggests": {
+    "another-mod": "*"
   }
 }

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "hypixelzombiehelper",
+  "version": "${version}",
+  "name": "HypixelZombieHelper",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/hypixelzombiehelper/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "skyxnetwork.hypixelzombiehelper.client.HypixelzombiehelperClient"
+    ],
+    "main": [
+      "skyxnetwork.hypixelzombiehelper.Hypixelzombiehelper"
+    ]
+  },
+  "mixins": [
+    "hypixelzombiehelper.mixins.json",
+    {
+      "config": "hypixelzombiehelper.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

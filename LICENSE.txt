@@ -1,7 +1,8 @@
-### License  
+License  
 Copyright (c) 2025 XPaladiumyX  
 All rights reserved.  
-# Permission  
+
+Permission  
 
 You are granted a non-exclusive, non-transferable, and limited license to use, modify, and distribute the HypixelZombieHelper mod under the following conditions:  
 
@@ -13,11 +14,11 @@ You are granted a non-exclusive, non-transferable, and limited license to use, m
 
   - No Warranty: The mod is provided "as is," without warranty of any kind. XPaladiumyX is not responsible for any damages resulting from the use of this mod.  
 
-# Restrictions  
+Restrictions  
 
   - You may not sell, sublicense, or otherwise transfer the mod for profit.  
   - You may not use the mod in any manner that violates any laws or intellectual property rights.  
 
-# Limitation of Liability  
+Limitation of Liability  
 
 In no event shall XPaladiumyX be liable for any damages arising from the use or inability to use the mod, including but not limited to any loss of data, revenue, or business.  

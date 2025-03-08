@@ -19,6 +19,10 @@ Restrictions
   - You may not sell, sublicense, or otherwise transfer the mod for profit.  
   - You may not use the mod in any manner that violates any laws or intellectual property rights.  
 
+Non-Affiliation
+
+This mod, HypixelZombieHelper, is in no way affiliated with, endorsed, or authorized by the official Hypixel server or its owners. All trademarks and related rights are the property of their respective owners. The use of the name "Hypixel" or any content related to the Hypixel network is strictly for reference purposes and does not imply any official connection.
+
 Limitation of Liability  
 
 In no event shall XPaladiumyX be liable for any damages arising from the use or inability to use the mod, including but not limited to any loss of data, revenue, or business.  

@@ -6,5 +6,7 @@ public class HypixelzombiehelperClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        // Enregistrer les KeyBindings
+        KeyBindings.register();
     }
 }

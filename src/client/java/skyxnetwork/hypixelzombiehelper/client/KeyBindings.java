@@ -16,14 +16,13 @@ public class KeyBindings {
     );
 
     public static void register() {
-        // Enregistrer la touche dans Minecraft
         KeyBindingHelper.registerKeyBinding(OPEN_OVERLAY);
 
-        // Ajouter un listener pour détecter les appuis
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (OPEN_OVERLAY.wasPressed()) {
-                System.out.println("Touche * pressée ! Ouvrir l'overlay...");
-                // Ici, on ouvrira l'interface graphique plus tard
+                if (client.currentScreen == null) {
+                    client.setScreen(new ScoreboardConfigScreen());
+                }
             }
         });
     }

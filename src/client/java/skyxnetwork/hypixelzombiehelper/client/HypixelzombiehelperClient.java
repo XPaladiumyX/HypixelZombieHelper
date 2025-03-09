@@ -10,8 +10,12 @@ public class HypixelzombiehelperClient implements ClientModInitializer {
         // Enregistrer les KeyBindings
         KeyBindings.register();
 
-        // ✅ Utiliser une lambda pour passer le float tickDelta correctement
-        HudRenderCallback.EVENT.register(ScoreboardOverlay::render
+        // Charger la position de la scoreboard
+        ScoreboardOverlay.loadPosition();
+
+        // Ajouter l'affichage de la scoreboard
+        HudRenderCallback.EVENT.register((drawContext, tickDelta) ->
+                ScoreboardOverlay.render(drawContext, tickDelta)
         );
     }
 }

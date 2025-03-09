@@ -1,5 +1,6 @@
 package skyxnetwork.hypixelzombiehelper.client;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -31,6 +32,10 @@ public class ScoreboardConfigScreen extends Screen {
         addDrawableChild(ButtonWidget.builder(Text.of("Sauvegarder"), button -> {
             ScoreboardOverlay.setPosition(posX, posY);
             ScoreboardOverlay.savePosition(); // Sauvegarde persistante
+            MinecraftClient.getInstance().execute(() -> {
+                ScoreboardOverlay.setPosition(posX, posY);
+                ScoreboardOverlay.savePosition();
+            });
             this.client.setScreen(null); // Ferme l'écran
         }).dimensions(width / 2 - 50, height - 40, 100, 20).build());
 
@@ -46,20 +51,22 @@ public class ScoreboardConfigScreen extends Screen {
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         super.render(drawContext, mouseX, mouseY, delta);
 
+        // Rendre l'overlay dans l'interface d'édition
+        ScoreboardOverlay.renderInConfigScreen(drawContext, delta);
+
         drawContext.drawCenteredTextWithShadow(this.textRenderer, Text.literal("Déplacez la scoreboard avec la souris"), width / 2, 20, 0xFFFFFF);
 
         if (dragging) {
             int screenWidth = this.client.getWindow().getScaledWidth();
             int screenHeight = this.client.getWindow().getScaledHeight();
 
-            // Empêcher l'overlay de sortir de l'écran
+            // Prevent the overlay from going off-screen
             posX = MathHelper.clamp(mouseX - offsetX, 0, screenWidth - 100);
             posY = MathHelper.clamp(mouseY - offsetY, 0, screenHeight - 50);
 
             ScoreboardOverlay.setPosition(posX, posY);
+            ScoreboardOverlay.savePosition();
         }
-
-        ScoreboardOverlay.render(drawContext, delta);
     }
 
     @Override

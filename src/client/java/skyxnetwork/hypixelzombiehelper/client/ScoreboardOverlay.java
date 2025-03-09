@@ -19,26 +19,56 @@ public class ScoreboardOverlay {
     private static int posX = 10; // Position par défaut X
     private static int posY = 20; // Position par défaut Y
 
-    public static void render(DrawContext drawContext, float tickDelta) {
+    public static void renderInClient(DrawContext drawContext, RenderTickCounter tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client == null || client.player == null) return;
 
         TextRenderer textRenderer = client.textRenderer;
 
-        // Dessiner un fond semi-transparent
-        drawContext.fill(posX - 5, posY - 5, posX + 100, posY + 50, 0x88000000);
+        // Texte à afficher
+        String[] lines = {
+                "Hypixel Zombies Stats",
+                "Kills: 120",
+                "Gold: 500"
+        };
 
-        // Afficher du texte
-        drawContext.drawText(textRenderer, Text.of("Hypixel Zombies Stats"), posX, posY, 0xFFFFFF, true);
-        drawContext.drawText(textRenderer, Text.of("Kills: 120"), posX, posY + 10, 0xFFFF55, true);
-        drawContext.drawText(textRenderer, Text.of("Gold: 500"), posX, posY + 20, 0xFFFF55, true);
+        // Calculer la largeur maximale du texte
+        int maxTextWidth = 0;
+        for (String line : lines) {
+            int lineWidth = textRenderer.getWidth(line);
+            if (lineWidth > maxTextWidth) {
+                maxTextWidth = lineWidth;
+            }
+        }
+
+        // Calculer la hauteur totale du texte
+        int textHeight = textRenderer.fontHeight * lines.length;
+
+        // Définir les marges
+        int paddingX = 5; // Marge horizontale
+        int paddingY = 5; // Marge verticale
+
+        // Calculer la taille du fond
+        int backgroundWidth = maxTextWidth + 2 * paddingX;
+        int backgroundHeight = textHeight + 2 * paddingY;
+
+        // Draw a semi-transparent background
+        drawContext.fill(posX - paddingX, posY - paddingY, posX + backgroundWidth, posY + backgroundHeight, 0x88000000);
+
+        // Display text
+        int yOffset = 0;
+        for (String line : lines) {
+            drawContext.drawText(textRenderer, Text.of(line), posX, posY + yOffset, 0xFFFFFF, true);
+            yOffset += textRenderer.fontHeight;
+        }
     }
+
 
     public static void setPosition(int x, int y) {
         int screenWidth = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int screenHeight = MinecraftClient.getInstance().getWindow().getScaledHeight();
 
-        // Empêcher de placer l'overlay en dehors de l'écran
+        // Prevent placing the overlay outside the screen
         posX = MathHelper.clamp(x, 0, screenWidth - 100);
         posY = MathHelper.clamp(y, 0, screenHeight - 50);
     }
@@ -74,7 +104,48 @@ public class ScoreboardOverlay {
         }
     }
 
-    public static void render(DrawContext drawContext, RenderTickCounter renderTickCounter) {
+    public static void renderInConfigScreen(DrawContext drawContext, float delta) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client == null || client.player == null) return;
+
+        TextRenderer textRenderer = client.textRenderer;
+
+        // Texte à afficher
+        String[] lines = {
+                "Hypixel Zombies Stats",
+                "Kills: 120",
+                "Gold: 500"
+        };
+
+        // Calculer la largeur maximale du texte
+        int maxTextWidth = 0;
+        for (String line : lines) {
+            int lineWidth = textRenderer.getWidth(line);
+            if (lineWidth > maxTextWidth) {
+                maxTextWidth = lineWidth;
+            }
+        }
+
+        // Calculer la hauteur totale du texte
+        int textHeight = textRenderer.fontHeight * lines.length;
+
+        // Définir les marges
+        int paddingX = 5; // Marge horizontale
+        int paddingY = 5; // Marge verticale
+
+        // Calculer la taille du fond
+        int backgroundWidth = maxTextWidth + 2 * paddingX;
+        int backgroundHeight = textHeight + 2 * paddingY;
+
+        // Draw a semi-transparent background
+        drawContext.fill(posX - paddingX, posY - paddingY, posX + backgroundWidth, posY + backgroundHeight, 0x88000000);
+
+        // Display text
+        int yOffset = 0;
+        for (String line : lines) {
+            drawContext.drawText(textRenderer, Text.of(line), posX, posY + yOffset, 0xFFFFFF, true);
+            yOffset += textRenderer.fontHeight;
+        }
     }
 }
 

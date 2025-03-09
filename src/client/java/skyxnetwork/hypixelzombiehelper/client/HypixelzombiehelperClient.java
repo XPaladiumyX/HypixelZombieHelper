@@ -7,15 +7,13 @@ public class HypixelzombiehelperClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // Enregistrer les KeyBindings
+        // Save KeyBindings
         KeyBindings.register();
 
-        // Charger la position de la scoreboard
+        // Load the scoreboard position
         ScoreboardOverlay.loadPosition();
 
-        // Ajouter l'affichage de la scoreboard
-        HudRenderCallback.EVENT.register((drawContext, tickDelta) ->
-                ScoreboardOverlay.render(drawContext, tickDelta)
-        );
+        // Add scoreboard display
+        HudRenderCallback.EVENT.register(ScoreboardOverlay::renderInClient);
     }
 }

@@ -16,11 +16,21 @@ public class ScoreboardUtils {
         Scoreboard scoreboard = client.player.getScoreboard();
         ScoreboardObjective objective = scoreboard.getObjectiveForSlot(ScoreboardDisplaySlot.SIDEBAR);
 
-        if (objective == null) return scoreboardData;
+        if (objective == null) {
+            System.out.println("Aucun objectif trouvé dans la scoreboard !");
+            return scoreboardData;
+        }
 
         // Récupérer tous les détenteurs de score (ScoreHolder)
         for (ScoreHolder holder : scoreboard.getKnownScoreHolders()) {
+            System.out.println("ScoreHolder: " + holder.getNameForScoreboard());
             ReadableScoreboardScore score = scoreboard.getScore(holder, objective);
+            for (Team team : scoreboard.getTeams()) {
+                System.out.println("Équipe trouvée: " + team.getDisplayName().getString());
+            }
+            for (ScoreboardObjective obj : scoreboard.getObjectives()) {
+                System.out.println("Objectif trouvé: " + obj.getName());
+            }
 
             // Vérifier si le score est valide
             if (score == null) continue;

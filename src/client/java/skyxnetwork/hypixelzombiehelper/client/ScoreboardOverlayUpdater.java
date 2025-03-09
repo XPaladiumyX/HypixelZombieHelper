@@ -9,6 +9,7 @@ public class ScoreboardOverlayUpdater {
             if (client.player != null) {
                 // Mettre à jour les données de l'overlay
                 ScoreboardOverlay.updateData();
+                System.out.println("Mise à jour des données de la scoreboard !");
             }
         });
     }

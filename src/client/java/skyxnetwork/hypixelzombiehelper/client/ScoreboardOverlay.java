@@ -13,11 +13,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ScoreboardOverlay {
     private static final File CONFIG_FILE = new File("config/hypixelzombiehelper.json");
     private static int posX = 10; // Position par défaut X
     private static int posY = 20; // Position par défaut Y
+    private static Map<String, String> scoreboardData = new HashMap<>();
 
     public static void renderInClient(DrawContext drawContext, RenderTickCounter tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -25,11 +28,17 @@ public class ScoreboardOverlay {
 
         TextRenderer textRenderer = client.textRenderer;
 
+        // Récupérer les données de la scoreboard
+        Map<String, String> scoreboardData = ScoreboardUtils.getScoreboardData();
+
         // Texte à afficher
         String[] lines = {
                 "Hypixel Zombies Stats",
-                "Kills: 120",
-                "Gold: 500"
+                "Round: " + scoreboardData.getOrDefault("Round", "N/A"),
+                "Zombies Left: " + scoreboardData.getOrDefault("ZombiesLeft", "N/A"),
+                "Zombie Kills: " + scoreboardData.getOrDefault("ZombieKills", "N/A"),
+                "Time: " + scoreboardData.getOrDefault("Time", "N/A"),
+                "Area: " + scoreboardData.getOrDefault("Area", "N/A")
         };
 
         // Calculer la largeur maximale du texte
@@ -63,6 +72,9 @@ public class ScoreboardOverlay {
         }
     }
 
+    public static void updateData() {
+        scoreboardData = ScoreboardUtils.getScoreboardData();
+    }
 
     public static void setPosition(int x, int y) {
         int screenWidth = MinecraftClient.getInstance().getWindow().getScaledWidth();
@@ -110,11 +122,17 @@ public class ScoreboardOverlay {
 
         TextRenderer textRenderer = client.textRenderer;
 
+        // Récupérer les données de la scoreboard
+        Map<String, String> scoreboardData = ScoreboardUtils.getScoreboardData();
+
         // Texte à afficher
         String[] lines = {
                 "Hypixel Zombies Stats",
-                "Kills: 120",
-                "Gold: 500"
+                "Round: " + scoreboardData.getOrDefault("Round", "N/A"),
+                "Zombies Left: " + scoreboardData.getOrDefault("ZombiesLeft", "N/A"),
+                "Zombie Kills: " + scoreboardData.getOrDefault("ZombieKills", "N/A"),
+                "Time: " + scoreboardData.getOrDefault("Time", "N/A"),
+                "Area: " + scoreboardData.getOrDefault("Area", "N/A")
         };
 
         // Calculer la largeur maximale du texte
@@ -148,4 +166,5 @@ public class ScoreboardOverlay {
         }
     }
 }
+
 

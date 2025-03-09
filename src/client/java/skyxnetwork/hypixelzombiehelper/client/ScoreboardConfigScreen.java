@@ -7,6 +7,8 @@ import net.minecraft.text.Text;
 
 public class ScoreboardConfigScreen extends Screen {
     private int posX, posY;
+    private boolean dragging = false;
+    private int offsetX, offsetY;
 
     protected ScoreboardConfigScreen() {
         super(Text.of("Déplacer la Scoreboard"));
@@ -30,13 +32,48 @@ public class ScoreboardConfigScreen extends Screen {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        super.render(drawContext, mouseX, mouseY, delta); // Appel correct à la superclasse
+        super.render(drawContext, mouseX, mouseY, delta);
 
-        // Affichage du texte d'instruction
         drawContext.drawCenteredTextWithShadow(this.textRenderer, Text.literal("Déplacez la scoreboard avec la souris"), width / 2, 20, 0xFFFFFF);
 
-        // Met à jour temporairement la position de la scoreboard pendant le déplacement
-        ScoreboardOverlay.setPosition(mouseX - 50, mouseY - 10);
+        // Déplacement seulement si on est en train de drag
+        if (dragging) {
+            ScoreboardOverlay.setPosition(mouseX - offsetX, mouseY - offsetY);
+        }
+
+        // Affichage clair et non flou
+        ScoreboardOverlay.render(drawContext, delta);
     }
 
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0) { // Clic gauche
+            if (isHoveringOverOverlay(mouseX, mouseY)) {
+                dragging = true;
+                offsetX = (int) mouseX - ScoreboardOverlay.getPosX();
+                offsetY = (int) mouseY - ScoreboardOverlay.getPosY();
+                return true;
+            }
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (button == 0) { // Relâche le clic gauche
+            dragging = false;
+            return true;
+        }
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
+
+    private boolean isHoveringOverOverlay(double mouseX, double mouseY) {
+        int overlayX = ScoreboardOverlay.getPosX();
+        int overlayY = ScoreboardOverlay.getPosY();
+        int overlayWidth = 100;  // Largeur de la scoreboard
+        int overlayHeight = 50;  // Hauteur de la scoreboard
+
+        return mouseX >= overlayX && mouseX <= overlayX + overlayWidth &&
+                mouseY >= overlayY && mouseY <= overlayY + overlayHeight;
+    }
 }

@@ -10,7 +10,7 @@ public class ScoreboardOverlay {
     private static int posX = 10; // Position par défaut X
     private static int posY = 20; // Position par défaut Y
 
-    public static void render(DrawContext drawContext, RenderTickCounter tickDelta) {
+    public static void render(DrawContext drawContext, float _tickDelta) { // ✅ Bonne signature avec float
         MinecraftClient client = MinecraftClient.getInstance();
         if (client == null || client.player == null) return;
 
@@ -36,5 +36,8 @@ public class ScoreboardOverlay {
 
     public static int getPosY() {
         return posY;
+    }
+
+    public static void render(DrawContext drawContext, RenderTickCounter renderTickCounter) {
     }
 }

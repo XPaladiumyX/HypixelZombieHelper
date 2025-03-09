@@ -1,6 +1,7 @@
 package skyxnetwork.hypixelzombiehelper.client;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -94,10 +95,28 @@ public class ScoreboardConfigScreen extends Screen {
     private boolean isHoveringOverOverlay(double mouseX, double mouseY) {
         int overlayX = ScoreboardOverlay.getPosX();
         int overlayY = ScoreboardOverlay.getPosY();
-        int overlayWidth = 100;
-        int overlayHeight = 50;
 
-        return mouseX >= overlayX && mouseX <= overlayX + overlayWidth &&
-                mouseY >= overlayY && mouseY <= overlayY + overlayHeight;
+        // Calculer la taille du fond en fonction du texte
+        TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+        String[] lines = {
+                "Hypixel Zombies Stats",
+                "Kills: 120",
+                "Gold: 500"
+        };
+        int maxTextWidth = 0;
+        for (String line : lines) {
+            int lineWidth = textRenderer.getWidth(line);
+            if (lineWidth > maxTextWidth) {
+                maxTextWidth = lineWidth;
+            }
+        }
+        int textHeight = textRenderer.fontHeight * lines.length;
+        int paddingX = 5;
+        int paddingY = 5;
+        int overlayWidth = maxTextWidth + 2 * paddingX;
+        int overlayHeight = textHeight + 2 * paddingY;
+
+        return mouseX >= overlayX - paddingX && mouseX <= overlayX + overlayWidth &&
+                mouseY >= overlayY - paddingY && mouseY <= overlayY + overlayHeight;
     }
 }
